@@ -74,9 +74,32 @@ const contents = document.querySelector(".contents");
 const contentsLinks = [...contents.querySelectorAll("a")];
 const sections = contentsLinks.map((link) => document.querySelector(link.hash));
 const sidebarLayout = window.matchMedia("(min-width: 980px)");
+const contentsDisclosure = contents.closest(".project-toc");
+
+if (contentsDisclosure) {
+  const desktopContents = window.matchMedia("(min-width: 1080px)");
+  const summary = contentsDisclosure.querySelector("summary");
+  const setContentsLayout = () => { contentsDisclosure.open = desktopContents.matches; };
+
+  desktopContents.addEventListener("change", setContentsLayout);
+  setContentsLayout();
+
+  contents.addEventListener("click", (event) => {
+    if (!desktopContents.matches && event.target.closest("a")) contentsDisclosure.open = false;
+  });
+  contentsDisclosure.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !desktopContents.matches && contentsDisclosure.open) {
+      contentsDisclosure.open = false;
+      summary.focus();
+    }
+  });
+}
 
 function updateContents() {
-  const readingLine = sidebarLayout.matches ? 140 : contents.getBoundingClientRect().bottom + 22;
+  const scrollPadding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+  const readingLine = contentsDisclosure
+    ? scrollPadding + 22
+    : sidebarLayout.matches ? 140 : contents.getBoundingClientRect().bottom + 22;
   let current = 0;
 
   // A short final section may never reach the reading line.

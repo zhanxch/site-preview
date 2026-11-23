@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="project-page">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#f8f9fc">
   <title>RoboUse-RSI · Robot Recursive Self-Improvement</title>
   <link rel="stylesheet" href="./research/research.css">
-  <link rel="stylesheet" href="./project.css">
-  <script src="./site.js?v=2" defer></script>
+  <link rel="stylesheet" href="./project.css?v=2">
+  <script src="./site.js?v=3" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -26,28 +26,21 @@
       <path d="m2 19 7-7 4 4 9-10M15 6h7v7"/>
     </symbol>
   </svg>
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="#top" aria-label="RoboUse-RSI home">
-        <span class="brand-mark" aria-hidden="true"><i></i></span>
-        <span>RoboUse<span class="brand-rsi">-RSI</span></span>
-      </a>
-      <nav class="contents" aria-label="Sections">
-        <a href="#overview" aria-current="location">Overview</a>
-        <a href="#framework">Framework</a>
-        <a href="#methods">Methods</a>
-        <a href="#benchmarks">Benchmarks</a>
-        <a href="#demonstrations">Demos</a>
-        <a href="#quick-start">Setup</a>
-      </nav>
-      <a class="github-link" href="https://github.com/MichaelGaoZT/RoboUse-RSI">
-        <svg class="github-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M12 .75C5.79.75.75 5.79.75 12c0 4.97 3.22 9.19 7.69 10.68.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.64-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.63 1.22 3.27.94.1-.73.39-1.23.71-1.51-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.75 10.75 0 0 1 5.63 0c2.15-1.45 3.09-1.15 3.09-1.15.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.63 5.27-5.14 5.55.4.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 23.25 12C23.25 5.79 18.21.75 12 .75Z"/>
-        </svg>
-        GitHub
-      </a>
+  <div class="project-layout">
+    <div class="project-nav">
+      <details class="project-toc" open>
+        <summary>Contents</summary>
+        <nav class="contents" aria-label="Contents">
+          <p class="contents-title" aria-hidden="true">Contents</p>
+          <a href="#overview" aria-current="location">Overview</a>
+          <a href="#framework">Framework</a>
+          <a href="#methods">Methods</a>
+          <a href="#benchmarks">Benchmarks</a>
+          <a href="#demonstrations">Demos</a>
+          <a href="#quick-start">Setup</a>
+        </nav>
+      </details>
     </div>
-  </header>
 
   <main id="main-content" tabindex="-1">
     <section class="project-hero" aria-labelledby="hero-title">
@@ -60,6 +53,7 @@
           <div class="project-actions">
             <a class="primary-action" href="#overview">Explore the framework <span aria-hidden="true">↘</span></a>
             <a class="secondary-action" href="#demonstrations"><span class="play-mark" aria-hidden="true"></span> Watch a rollout</a>
+            <a class="secondary-action" href="https://github.com/MichaelGaoZT/RoboUse-RSI">GitHub <span aria-hidden="true">↗</span></a>
           </div>
         </div>
 
@@ -294,5 +288,6 @@ python -m openrsi methods run robo_icl --dry-run</code></pre>
     <a class="footer-name" href="#top">RoboUse-RSI</a>
     <a href="#top">Back to top</a>
   </footer>
+  </div>
 </body>
 </html>
