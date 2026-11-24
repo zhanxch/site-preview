@@ -1,275 +1,272 @@
 <!doctype html>
-<html lang="en" class="project-page">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="RoboUse-RSI is a research platform for testing how robot agents turn execution feedback into reusable skills and better decisions.">
-  <meta name="theme-color" content="#f8f9fc">
+  <meta name="theme-color" content="#05060d">
   <title>RoboUse-RSI · Robot Recursive Self-Improvement</title>
-  <link rel="stylesheet" href="./research/research.css">
-  <link rel="stylesheet" href="./project.css?v=2">
-  <script src="./site.js?v=3" defer></script>
+  <link rel="preload" href="./assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css?v=3">
+  <script src="./app.js?v=3" defer></script>
 </head>
 <body id="top">
-  <a class="skip-link" href="#main-content">Skip to content</a>
-  <svg class="cycle-icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <symbol id="icon-play" viewBox="0 0 24 24">
-      <path d="M5 4.7a1.2 1.2 0 0 1 1.8-1L20 11a1.2 1.2 0 0 1 0 2L6.8 20.3a1.2 1.2 0 0 1-1.8-1Z"/>
-    </symbol>
-    <symbol id="icon-database" viewBox="0 0 24 24">
-      <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 10c0 1.7 4 3 9 3s9-1.3 9-3M3 14.5c0 1.7 4 3 9 3s9-1.3 9-3"/>
-    </symbol>
-    <symbol id="icon-chart" viewBox="0 0 24 24">
-      <path d="M3 20v-4m6 4V9m6 11V6m6 14V2"/>
-    </symbol>
-    <symbol id="icon-trend" viewBox="0 0 24 24">
-      <path d="m2 19 7-7 4 4 9-10M15 6h7v7"/>
-    </symbol>
-  </svg>
-  <div class="project-layout">
-    <div class="project-nav">
-      <details class="project-toc" open>
-        <summary>Contents</summary>
-        <nav class="contents" aria-label="Contents">
-          <p class="contents-title" aria-hidden="true">Contents</p>
-          <a href="#overview" aria-current="location">Overview</a>
-          <a href="#framework">Framework</a>
-          <a href="#methods">Methods</a>
-          <a href="#benchmarks">Benchmarks</a>
-          <a href="#demonstrations">Demos</a>
-          <a href="#quick-start">Setup</a>
-        </nav>
-      </details>
-    </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="noise" aria-hidden="true"></div>
 
-  <main id="main-content" tabindex="-1">
-    <section class="project-hero" aria-labelledby="hero-title">
-      <div class="wrap project-hero-grid">
-        <div class="project-intro">
-          <p class="project-kicker">Open platform for robot recursive self-improvement</p>
-          <h1 id="hero-title">RoboUse<span>-RSI</span></h1>
-          <p class="project-thesis">Robot learning, run by run.</p>
-          <p class="project-lede">Deploy robot agents, learn from what happens, and measure what improves on the next run. RoboUse-RSI gives researchers shared interfaces for building and comparing methods.</p>
-          <div class="project-actions">
-            <a class="primary-action" href="#overview">Explore the framework <span aria-hidden="true">↘</span></a>
-            <a class="secondary-action" href="#demonstrations"><span class="play-mark" aria-hidden="true"></span> Watch a rollout</a>
-            <a class="secondary-action" href="https://github.com/MichaelGaoZT/RoboUse-RSI">GitHub <span aria-hidden="true">↗</span></a>
-          </div>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>RoboUse<b>-RSI</b></span></a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#overview">Loop</a>
+      <a href="#framework">Framework</a>
+      <a href="#methods">Methods</a>
+      <a href="#benchmarks">Benchmarks</a>
+      <a href="#demos">Demos</a>
+      <a href="#quick-start">Setup</a>
+    </nav>
+    <a class="gh-button" href="https://github.com/MichaelGaoZT/RoboUse-RSI">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      GitHub
+    </a>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span>Open platform for robot recursive self-improvement</p>
+        <h1 class="glitch" data-text="RoboUse-RSI">RoboUse<span>-RSI</span></h1>
+        <p class="thesis">Robot learning, <em class="scramble" data-words="run by run.|failure by failure.|skill by skill.">run by run.</em></p>
+        <p class="lede">Deploy robot agents, learn from what happens, and measure what improves on the next run. RoboUse-RSI gives researchers shared interfaces for building and comparing methods.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#overview"><span>Explore the framework</span><i aria-hidden="true">→</i></a>
+          <a class="btn btn-ghost" href="#demos"><span class="play" aria-hidden="true"></span>Watch a rollout</a>
+        </div>
+      </div>
+
+      <figure class="loop" aria-label="Robot self-improvement cycle: deploy, experience, learn, improve">
+        <svg class="loop-svg" viewBox="0 0 520 520" aria-hidden="true">
+          <defs>
+            <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#00f0ff"/>
+              <stop offset=".5" stop-color="#7c5cff"/>
+              <stop offset="1" stop-color="#ff3d9a"/>
+            </linearGradient>
+            <radialGradient id="core" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#7c5cff" stop-opacity=".45"/>
+              <stop offset="1" stop-color="#7c5cff" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <circle cx="260" cy="260" r="250" fill="url(#core)"/>
+          <g class="spin-slow">
+            <circle cx="260" cy="260" r="236" fill="none" stroke="rgba(255,255,255,.08)" stroke-dasharray="2 10"/>
+          </g>
+          <g class="spin-rev">
+            <circle cx="260" cy="260" r="120" fill="none" stroke="rgba(0,240,255,.25)" stroke-dasharray="40 14 4 14"/>
+          </g>
+          <circle cx="260" cy="260" r="190" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="18"/>
+          <circle id="ring-path" cx="260" cy="260" r="190" fill="none" stroke="url(#ring)" stroke-width="3" filter="url(#glow)" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" transform="rotate(-90 260 260)"/>
+          <g id="comet" filter="url(#glow)">
+            <circle r="8" fill="#fff"/>
+            <circle r="16" fill="#00f0ff" opacity=".35"/>
+          </g>
+        </svg>
+
+        <div class="core">
+          <span class="core-label">RUN</span>
+          <span class="core-run" id="core-run">#001</span>
+          <span class="core-bar"><i id="core-bar"></i></span>
+          <span class="core-rate"><b id="core-rate">12</b>% success</span>
         </div>
 
-        <figure class="robot-cycle">
-          <figcaption class="sr-only">Robot self-improvement cycle</figcaption>
-          <svg class="cycle-arrows" viewBox="0 0 600 338" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="cycle-gradient">
-                <stop stop-color="#deedff"/>
-                <stop offset="1" stop-color="#5597ff"/>
-              </linearGradient>
-              <marker id="cycle-arrowhead" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="3" markerHeight="3" orient="auto">
-                <path fill="#76aaff" d="M0 0 12 6 0 12 2.5 6Z"/>
-              </marker>
-            </defs>
-            <g fill="none" stroke="url(#cycle-gradient)" stroke-width="7" marker-end="url(#cycle-arrowhead)">
-              <path d="M408 49Q458 62 485 117"/>
-              <path d="M498 212Q480 260 446 275"/>
-              <path d="M185 282Q133 262 117 229"/>
-              <path d="M117 119Q130 76 175 57"/>
-            </g>
-          </svg>
-          <img class="cycle-robot" src="./assets/robot-cycle.webp" fetchpriority="high" width="690" height="460" alt="">
-          <ol class="cycle-stages">
-            <li class="stage-deploy">
-              <a href="#deploy">
-                <svg class="cycle-icon" aria-hidden="true"><use href="#icon-play"/></svg>
-                <div><strong>Deploy</strong><span>Run &amp; collect</span></div>
-              </a>
-            </li>
-            <li class="stage-experience">
-              <a href="#record">
-                <svg class="cycle-icon" aria-hidden="true"><use href="#icon-database"/></svg>
-                <div><strong>Experience</strong><span>Record interactions</span></div>
-              </a>
-            </li>
-            <li class="stage-learn">
-              <a href="#learn">
-                <svg class="cycle-icon" aria-hidden="true"><use href="#icon-chart"/></svg>
-                <div><strong>Learn</strong><span>Distill skills and lessons</span></div>
-              </a>
-            </li>
-            <li class="stage-improve">
-              <a href="#evaluate">
-                <svg class="cycle-icon" aria-hidden="true"><use href="#icon-trend"/></svg>
-                <div><strong>Improve</strong><span>Evaluate &amp; iterate</span></div>
-              </a>
-            </li>
-          </ol>
-        </figure>
-      </div>
+        <ol class="nodes">
+          <li class="node n-top" data-stage="0"><a href="#deploy"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg><strong>Deploy</strong><span>Run &amp; collect</span></a></li>
+          <li class="node n-right" data-stage="1"><a href="#record"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg><strong>Experience</strong><span>Record interactions</span></a></li>
+          <li class="node n-bottom" data-stage="2"><a href="#learn"><svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 0 0-4 4v1a4 4 0 0 0-3 6.5A4 4 0 0 0 9 21h1V3M12 3a4 4 0 0 1 4 4v1a4 4 0 0 1 3 6.5A4 4 0 0 1 15 21h-1"/></svg><strong>Learn</strong><span>Distill skills &amp; lessons</span></a></li>
+          <li class="node n-left" data-stage="3"><a href="#evaluate"><svg viewBox="0 0 24 24"><path d="m3 18 6-6 4 4 8-9M15 7h6v6"/></svg><strong>Improve</strong><span>Evaluate &amp; iterate</span></a></li>
+        </ol>
+      </figure>
+
+      <a class="scroll-cue" href="#stats" aria-label="Scroll down"><span></span></a>
     </section>
 
-    <ul class="wrap fact-rail" aria-label="RoboUse-RSI at a glance">
-      <li><a href="#methods"><strong>8</strong><span><b>Starter methods</b><small>More methods to come</small></span></a></li>
-      <li><a href="#benchmarks"><strong>5</strong><span><b>Benchmark adapters</b><small>Shared evaluation interface</small></span></a></li>
-      <li><a href="#framework"><strong>3</strong><span><b>Control modes</b><small>Direct action, code, and policy</small></span></a></li>
-      <li><a href="#quick-start"><span class="fact-code" aria-hidden="true">&lt;/&gt;</span><span><b>Code &amp; docs</b><small>Setup and implementation</small></span></a></li>
-    </ul>
+    <!-- STATS -->
+    <section class="stats" id="stats" aria-label="RoboUse-RSI at a glance">
+      <a class="stat reveal" href="#methods"><strong data-count="8">0</strong><b>Starter methods</b><small>More methods to come</small></a>
+      <a class="stat reveal" href="#benchmarks"><strong data-count="5">0</strong><b>Benchmark adapters</b><small>Shared evaluation interface</small></a>
+      <a class="stat reveal" href="#framework"><strong data-count="3">0</strong><b>Control modes</b><small>Direct action, code, and policy</small></a>
+      <a class="stat reveal" href="#quick-start"><strong class="mono">&lt;/&gt;</strong><b>Code &amp; docs</b><small>Setup and implementation</small></a>
+    </section>
 
-    <div class="wrap body-content">
-      <section id="overview" class="article-section research-overview" aria-labelledby="workflow-title">
-        <div class="research-heading">
-          <h2 id="workflow-title">How a run informs the next</h2>
-          <p>Each run produces observations, actions, and a benchmark outcome. Researchers can distill what worked into reusable skills or lessons, then test whether that experience improves a later run.</p>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>DEPLOY</span><i>✦</i><span>RECORD</span><i>✦</i><span>LEARN</span><i>✦</i><span>EVALUATE</span><i>✦</i><span>ROBODOJO</span><i>✦</i><span>ROBOCASA</span><i>✦</i><span>ROBOTWIN</span><i>✦</i><span>LIBERO</span><i>✦</i><span>LIBERO-PRO</span><i>✦</i>
+        <span>DEPLOY</span><i>✦</i><span>RECORD</span><i>✦</i><span>LEARN</span><i>✦</i><span>EVALUATE</span><i>✦</i><span>ROBODOJO</span><i>✦</i><span>ROBOCASA</span><i>✦</i><span>ROBOTWIN</span><i>✦</i><span>LIBERO</span><i>✦</i><span>LIBERO-PRO</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="section" id="overview">
+      <header class="section-head reveal">
+        <p class="tag">01 / Loop</p>
+        <h2>How a run informs <span class="grad">the next</span></h2>
+        <p>Each run produces observations, actions, and a benchmark outcome. Researchers can distill what worked into reusable skills or lessons, then test whether that experience improves a later run.</p>
+      </header>
+      <ol class="flow">
+        <li class="flow-step reveal" id="deploy"><span class="flow-n">01</span><h3>Deploy</h3><p>Run a robot agent in a benchmark environment.</p></li>
+        <li class="flow-step reveal" id="record"><span class="flow-n">02</span><h3>Record</h3><p>Capture decisions, actions, and execution feedback.</p></li>
+        <li class="flow-step reveal" id="learn"><span class="flow-n">03</span><h3>Learn</h3><p>Extract reusable skills and lessons from the run.</p></li>
+        <li class="flow-step reveal" id="evaluate"><span class="flow-n">04</span><h3>Evaluate</h3><p>Test what transfers to a later run and compare outcomes.</p></li>
+      </ol>
+    </section>
+
+    <!-- FRAMEWORK -->
+    <section class="section" id="framework">
+      <header class="section-head reveal">
+        <p class="tag">02 / Framework</p>
+        <h2>Five responsibilities, <span class="grad">one interface</span></h2>
+        <p>A method combines five responsibilities. Shared services handle models, robot capabilities, and experiment recording across those combinations. Agents can generate actions directly, execute model-written code, or delegate a subtask to a policy.</p>
+      </header>
+
+      <div class="stack reveal">
+        <div class="stack-layers">
+          <div class="layer glow-card" style="--c:#00f0ff"><span>01</span><h3>Orchestration</h3><p>Plan, supervise, and recover.</p></div>
+          <div class="layer glow-card" style="--c:#3fa9ff"><span>02</span><h3>Context</h3><p>Select history and retrieve experience.</p></div>
+          <div class="layer glow-card" style="--c:#7c5cff"><span>03</span><h3>Execution</h3><p>Run actions, programs, and policies.</p></div>
+          <div class="layer glow-card" style="--c:#c04dff"><span>04</span><h3>Evaluation</h3><p>Check outcomes and measure cost.</p></div>
+          <div class="layer glow-card" style="--c:#ff3d9a"><span>05</span><h3>Learning</h3><p>Distill skills and lessons from evidence.</p></div>
         </div>
-        <ol class="research-flow">
-          <li id="deploy"><h3>Deploy</h3><p>Run a robot agent in a benchmark environment.</p></li>
-          <li id="record"><h3>Record</h3><p>Capture decisions, actions, and execution feedback.</p></li>
-          <li id="learn"><h3>Learn</h3><p>Extract reusable skills and lessons from the run.</p></li>
-          <li id="evaluate"><h3>Evaluate</h3><p>Test what transfers to a later run and compare outcomes.</p></li>
-        </ol>
-      </section>
+        <div class="stack-base">
+          <strong>Shared infrastructure</strong>
+          <span>Robot capabilities</span><span>Runtime services</span><span>Environment adapters</span>
+        </div>
+        <a class="link-arrow" href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/docs/functional-composition.md" hreflang="zh">Composition guide ↗</a>
+      </div>
 
+      <div class="modes">
+        <div class="mode reveal"><code>act()</code><h3>Direct action</h3><p>The model emits end-effector targets or action chunks from observations.</p></div>
+        <div class="mode reveal"><code>exec(py)</code><h3>Code</h3><p>Model-written programs run against a persistent robot API.</p></div>
+        <div class="mode reveal"><code>π.delegate()</code><h3>Policy</h3><p>A subtask is handed to a learned policy under supervision.</p></div>
+      </div>
 
-        <section class="article-section" id="framework">
-          <h2>Framework</h2>
-          <p>A method combines five responsibilities. Shared services handle models, robot capabilities, and experiment recording across those combinations. Agents can generate actions directly, execute model-written code, or delegate a subtask to a policy.</p>
-          <div class="framework-figure">
-            <div class="framework-head">
-              <h3>Method components</h3>
-              <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/docs/functional-composition.md" hreflang="zh">Composition guide</a>
-            </div>
-            <dl class="components">
-              <div><dt>Orchestration</dt><dd>Plan, supervise, and recover.</dd></div>
-              <div><dt>Context</dt><dd>Select history and retrieve experience.</dd></div>
-              <div><dt>Execution</dt><dd>Run actions, programs, and policies.</dd></div>
-              <div><dt>Evaluation</dt><dd>Check outcomes and measure cost.</dd></div>
-              <div><dt>Learning</dt><dd>Distill skills and lessons from evidence.</dd></div>
-            </dl>
-            <div class="framework-base">
-              <strong>Shared infrastructure</strong>
-              <span>Robot capabilities · Runtime services · Environment adapters</span>
-            </div>
+      <p class="prose reveal">While a robot is running, the agent can use recent observations and action feedback as context. Across attempts, an exploration workflow can distill lessons or skills, freeze them, and pass them into later runs for evaluation. The recorded context and benchmark outcomes help researchers compare methods under the same task, model, and budget.</p>
+    </section>
+
+    <!-- METHODS -->
+    <section class="section" id="methods">
+      <header class="section-head reveal">
+        <p class="tag">03 / Methods</p>
+        <h2>Eight reference <span class="grad">methods</span></h2>
+        <p>A starting set for direct control, policy supervision, and learning from experience. More methods can be added through the same interfaces and evaluated with the same benchmark adapters.</p>
+      </header>
+      <div class="methods">
+        <a class="method glow-card reveal" data-kind="direct" href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/robo_probe"><span class="kind">Direct</span><h3>RoboProbe</h3><p>Generate end-effector targets and use motion feedback to decide the next action.</p><i>↗</i></a>
+        <a class="method glow-card reveal" data-kind="direct" href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/robo_icl"><span class="kind">Direct</span><h3>RoboICL</h3><p>Provide demonstrations and selected interaction history before predicting action chunks.</p><i>↗</i></a>
+        <a class="method glow-card reveal" data-kind="code" href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/pyrua_lean"><span class="kind">Code</span><h3>PyRUA-Lean</h3><p>Execute model-generated Python in a persistent session that can observe, act, and retry.</p><i>↗</i></a>
+        <a class="method glow-card reveal" data-kind="code" href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/hexa_shell"><span class="kind">Code</span><h3>HexaShell</h3><p>Write control programs against a configurable robot API and visual interface.</p><i>↗</i></a>
+        <a class="method glow-card reveal" data-kind="policy" href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/harness_vla"><span class="kind">Policy</span><h3>HarnessVLA</h3><p>Combine retrieved experience, robot primitives, and a fixed learned policy.</p><i>↗</i></a>
+        <a class="method glow-card reveal" data-kind="policy" href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/emerge_policy"><span class="kind">Policy</span><h3>EMERGE-Policy</h3><p>Run subgoals with planning, independent verification, and local recovery.</p><i>↗</i></a>
+        <a class="method glow-card reveal" data-kind="policy" href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/spotter"><span class="kind">Policy</span><h3>Spotter</h3><p>Monitor a running policy and hand control back after a local repair.</p><i>↗</i></a>
+        <a class="method glow-card reveal" data-kind="learn" href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/embodied_evo"><span class="kind">Learning</span><h3>EmbodiedEVO</h3><p>Accumulate skills and lessons in exploration, then reuse frozen knowledge in a new session.</p><i>↗</i></a>
+      </div>
+      <aside class="cta reveal">
+        <div><h3>Build on the starter set</h3><p>Compose a method with shared components and compare it under the same task, model, and budget.</p></div>
+        <a class="btn btn-primary" href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/docs/functional-composition.md" hreflang="zh"><span>Read the composition guide</span><i aria-hidden="true">↗</i></a>
+      </aside>
+    </section>
+
+    <!-- BENCHMARKS -->
+    <section class="section" id="benchmarks">
+      <header class="section-head reveal">
+        <p class="tag">04 / Benchmarks</p>
+        <h2>Five worlds, <span class="grad">one runtime</span></h2>
+        <p>Adapters translate native observations and controls into a common runtime interface and preserve each benchmark’s task verdict.</p>
+      </header>
+      <div class="bench">
+        <div class="bench-row reveal"><span class="bench-i">01</span><h3>RoboDojo</h3><p>Bimanual simulation with direct control, policy delegation, and supervision workflows.</p></div>
+        <div class="bench-row reveal"><span class="bench-i">02</span><h3>RoboCasa</h3><p>Household manipulation with native observations, controls, and task scoring.</p></div>
+        <div class="bench-row reveal"><span class="bench-i">03</span><h3>RoboTwin</h3><p>Bimanual tasks with native environment lifecycle and control interfaces.</p></div>
+        <div class="bench-row reveal"><span class="bench-i">04</span><h3>LIBERO</h3><p>Standard suites with task and seed selection and native success checks.</p></div>
+        <div class="bench-row reveal"><span class="bench-i">05</span><h3>LIBERO-PRO</h3><p>LIBERO variants with object swaps, depth-based perception, and operational-space control.</p></div>
+      </div>
+      <p class="note reveal">Method and checkpoint compatibility depends on the environment and its action space. <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/openrsi/integrations/benchmarks/README.md" hreflang="zh">Read the adapter guide ↗</a></p>
+    </section>
+
+    <!-- DEMOS -->
+    <section class="section" id="demos">
+      <header class="section-head reveal">
+        <p class="tag">05 / Demonstrations</p>
+        <h2>Watch it <span class="grad">run</span></h2>
+        <p>Two RoboDojo runs show how action decisions and interventions are recorded. Each clip displays the left wrist, head, and right wrist cameras.</p>
+      </header>
+
+      <figure class="feature reveal">
+        <div class="hud">
+          <img id="run-frame" src="./assets/align-push.webp" width="632" height="474" loading="lazy" alt="The robot uses a ruler to push three pink blocks into a line.">
+          <span class="hud-corner tl"></span><span class="hud-corner tr"></span><span class="hud-corner bl"></span><span class="hud-corner br"></span>
+          <span class="hud-rec"><i></i>REC</span>
+          <span class="hud-label mono" id="camera-label">HEAD CAM · STEP 081</span>
+          <span class="scanline" aria-hidden="true"></span>
+        </div>
+        <div class="feature-panel">
+          <p class="tag">RoboDojo simulation</p>
+          <h3>Aligning blocks</h3>
+          <p class="feature-note" id="run-note" aria-live="polite">At step 81, the robot uses a ruler to push three blocks into alignment.</p>
+          <div class="timeline" role="group" aria-label="Keyframes from the block alignment run">
+            <div class="timeline-track"><i id="timeline-fill" style="width:60%"></i></div>
+            <button type="button" data-frame="start" aria-pressed="false" style="left:0%"><b>Start</b><small>000</small></button>
+            <button type="button" data-frame="push" aria-pressed="true" style="left:60%"><b>Align</b><small>081</small></button>
+            <button type="button" data-frame="finish" aria-pressed="false" style="left:100%"><b>Finish</b><small>135</small></button>
           </div>
-          <p>While a robot is running, the agent can use recent observations and action feedback as context. Across attempts, an exploration workflow can distill lessons or skills, freeze them, and pass them into later runs for evaluation. The recorded context and benchmark outcomes help researchers compare methods under the same task, model, and budget.</p>
-        </section>
-
-        <section class="article-section" id="methods">
-          <h2>Reference methods</h2>
-          <p>These eight reference implementations are a starting set for direct control, policy supervision, and learning from experience. More methods can be added through the same interfaces and evaluated with the same benchmark adapters.</p>
-          <dl class="method-list">
-            <div>
-              <dt><a href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/robo_probe">RoboProbe</a></dt>
-              <dd>Generate end-effector targets and use motion feedback to decide the next action.</dd>
-            </div>
-            <div>
-              <dt><a href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/robo_icl">RoboICL</a></dt>
-              <dd>Provide demonstrations and selected interaction history before predicting action chunks.</dd>
-            </div>
-            <div>
-              <dt><a href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/pyrua_lean">PyRUA-Lean</a></dt>
-              <dd>Execute model-generated Python in a persistent session that can observe, act, and retry.</dd>
-            </div>
-            <div>
-              <dt><a href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/hexa_shell">HexaShell</a></dt>
-              <dd>Write control programs against a configurable robot API and visual interface.</dd>
-            </div>
-            <div>
-              <dt><a href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/harness_vla">HarnessVLA</a></dt>
-              <dd>Combine retrieved experience, robot primitives, and a fixed learned policy.</dd>
-            </div>
-            <div>
-              <dt><a href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/emerge_policy">EMERGE-Policy</a></dt>
-              <dd>Run subgoals with planning, independent verification, and local recovery.</dd>
-            </div>
-            <div>
-              <dt><a href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/spotter">Spotter</a></dt>
-              <dd>Monitor a running policy and hand control back after a local repair.</dd>
-            </div>
-            <div>
-              <dt><a href="https://github.com/MichaelGaoZT/OpenRSI/tree/main/openrsi/methods/embodied_evo">EmbodiedEVO</a></dt>
-              <dd>Accumulate skills and lessons in exploration, then reuse frozen knowledge in a new session.</dd>
-            </div>
-          </dl>
-          <aside class="method-extension" aria-labelledby="method-extension-title">
-            <div><h3 id="method-extension-title">Build on the starter set</h3><p>Compose a method with shared components and compare it under the same task, model, and budget.</p></div>
-            <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/docs/functional-composition.md" hreflang="zh">Read the composition guide <span aria-hidden="true">↗</span></a>
-          </aside>
-        </section>
-
-        <section class="article-section" id="benchmarks">
-          <h2>Benchmarks</h2>
-          <p>Adapters translate native observations and controls into a common runtime interface and preserve each benchmark’s task verdict.</p>
-          <dl class="benchmark-list">
-            <div><dt>RoboDojo</dt><dd>Bimanual simulation with direct control, policy delegation, and supervision workflows.</dd></div>
-            <div><dt>RoboCasa</dt><dd>Household manipulation with native observations, controls, and task scoring.</dd></div>
-            <div><dt>RoboTwin</dt><dd>Bimanual tasks with native environment lifecycle and control interfaces.</dd></div>
-            <div><dt>LIBERO</dt><dd>Standard suites with task and seed selection and native success checks.</dd></div>
-            <div><dt>LIBERO-PRO</dt><dd>LIBERO variants with object swaps, depth-based perception, and operational-space control.</dd></div>
-          </dl>
-          <p class="section-note">Method and checkpoint compatibility depends on the environment and its action space. <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/openrsi/integrations/benchmarks/README.md" hreflang="zh">Read the adapter guide.</a></p>
-        </section>
-
-        <section class="article-section" id="demonstrations">
-          <h2>Demonstrations</h2>
-          <p>Two RoboDojo runs show how action decisions and interventions are recorded. Each clip displays the left wrist, head, and right wrist cameras.</p>
-
-          <figure class="featured-run">
-            <div class="run-card">
-              <div class="camera">
-                <img id="run-frame" src="./assets/align-push.webp" width="632" height="474" loading="lazy" alt="The robot uses a ruler to push three pink blocks into a line.">
-                <span class="camera-label micro" id="camera-label">Head camera · Step 81</span>
-              </div>
-              <div class="run-panel">
-                <p class="micro run-environment">RoboDojo simulation</p>
-                <h3>Aligning blocks</h3>
-                <p class="run-note" id="run-note" aria-live="polite">At step 81, the robot uses a ruler to push three blocks into alignment.</p>
-                <div class="run-steps" role="group" aria-label="Keyframes from the block alignment run" hidden>
-                  <button type="button" data-frame="start" aria-pressed="false">Start</button>
-                  <button type="button" data-frame="push" aria-pressed="true">Align</button>
-                  <button type="button" data-frame="finish" aria-pressed="false">Finish</button>
-                </div>
-                <a class="run-link" href="#align-blocks"><span class="play-mark" aria-hidden="true"></span> Watch the rollout</a>
-              </div>
-            </div>
-            <figcaption>Recorded simulation trajectory. The benchmark awarded a score of 100 after 135 control steps.</figcaption>
-          </figure>
-
-          <div class="demo-grid">
-            <article class="demo" id="align-blocks">
-              <div class="demo-heading">
-                <h3>Block alignment with direct control</h3>
-                <span class="outcome outcome-success">Task succeeded</span>
-              </div>
-              <p>The model chose each action batch from the current observation and trajectory history. The benchmark reported a score of 100 at step 135.</p>
-              <video controls playsinline preload="none" width="1920" height="480" poster="./assets/icl-video.webp" aria-label="Three camera views of block alignment in RoboDojo">
-                <source src="./assets/icl-three-cameras.mp4" type="video/mp4">
-              </video>
-              <a class="video-file" href="./assets/icl-three-cameras.mp4">Open alignment video</a>
-            </article>
-
-            <article class="demo">
-              <div class="demo-heading">
-                <h3>Scissors pickup with policy supervision</h3>
-                <span class="outcome">Task incomplete</span>
-              </div>
-              <p>A supervisor reviewed Pi0.5’s action windows and attempted two local repairs. The second repair executed, and the benchmark ended at the 200-step limit with a score of 0.</p>
-              <video controls playsinline preload="none" width="1920" height="480" poster="./assets/scissors-video.webp" aria-label="Three camera views of the supervised scissors pickup in RoboDojo">
-                <source src="./assets/scissors-three-cameras.mp4" type="video/mp4">
-              </video>
-              <a class="video-file" href="./assets/scissors-three-cameras.mp4">Open supervision video</a>
-            </article>
+          <div class="score">
+            <div><small>Score</small><strong>100</strong></div>
+            <div><small>Steps</small><strong>135</strong></div>
+            <div><small>Verdict</small><strong class="ok">PASS</strong></div>
           </div>
-          <p class="section-note">These runs used different tasks and execution modes. <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/feeed06eba674749b9617e12a1cccfbac7b5537f/docs/scissors-supervision-and-icl.md" hreflang="zh">Read the trajectory report.</a></p>
-        </section>
+        </div>
+        <figcaption>Recorded simulation trajectory. The benchmark awarded a score of 100 after 135 control steps.</figcaption>
+      </figure>
 
-        <section class="article-section" id="quick-start">
-          <h2>Quick start</h2>
-          <p>With Python 3.10 or newer and access to the implementation repository, install the framework and preview a reference method without starting a simulator or model.</p>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="micro">Terminal</span>
-              <button type="button" class="copy-button" data-copy="setup-command" hidden>Copy commands</button>
-            </div>
-            <pre tabindex="0"><code id="setup-command">git clone https://github.com/MichaelGaoZT/OpenRSI.git
+      <div class="videos">
+        <article class="video glow-card reveal" id="align-blocks">
+          <div class="video-head"><h3>Block alignment with direct control</h3><span class="pill pill-ok">Task succeeded</span></div>
+          <p>The model chose each action batch from the current observation and trajectory history. The benchmark reported a score of 100 at step 135.</p>
+          <video controls playsinline preload="none" width="1920" height="480" poster="./assets/icl-video.webp" aria-label="Three camera views of block alignment in RoboDojo">
+            <source src="./assets/icl-three-cameras.mp4" type="video/mp4">
+          </video>
+          <a class="link-arrow" href="./assets/icl-three-cameras.mp4">Open alignment video ↗</a>
+        </article>
+        <article class="video glow-card reveal">
+          <div class="video-head"><h3>Scissors pickup with policy supervision</h3><span class="pill pill-warn">Task incomplete</span></div>
+          <p>A supervisor reviewed Pi0.5’s action windows and attempted two local repairs. The second repair executed, and the benchmark ended at the 200-step limit with a score of 0.</p>
+          <video controls playsinline preload="none" width="1920" height="480" poster="./assets/scissors-video.webp" aria-label="Three camera views of the supervised scissors pickup in RoboDojo">
+            <source src="./assets/scissors-three-cameras.mp4" type="video/mp4">
+          </video>
+          <a class="link-arrow" href="./assets/scissors-three-cameras.mp4">Open supervision video ↗</a>
+        </article>
+      </div>
+      <p class="note reveal">These runs used different tasks and execution modes. <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/feeed06eba674749b9617e12a1cccfbac7b5537f/docs/scissors-supervision-and-icl.md" hreflang="zh">Read the trajectory report ↗</a></p>
+    </section>
+
+    <!-- QUICK START -->
+    <section class="section" id="quick-start">
+      <header class="section-head reveal">
+        <p class="tag">06 / Setup</p>
+        <h2>Up and running <span class="grad">in a minute</span></h2>
+        <p>With Python 3.10 or newer and access to the implementation repository, install the framework and preview a reference method without starting a simulator or model.</p>
+      </header>
+      <div class="terminal reveal">
+        <div class="term-bar">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span class="mono">~/OpenRSI — zsh</span>
+          <button type="button" class="copy" data-copy="setup-command">Copy</button>
+        </div>
+        <pre tabindex="0"><code id="setup-command">git clone https://github.com/MichaelGaoZT/OpenRSI.git
 cd OpenRSI
 python3 -m venv .venv
 source .venv/bin/activate
@@ -277,17 +274,19 @@ python -m pip install -e '.[runtime]'
 
 python -m openrsi methods list
 python -m openrsi methods run robo_icl --dry-run</code></pre>
-            <p class="sr-only" id="copy-status" role="status"></p>
-          </div>
-          <p>To run a full experiment, prepare the simulator, task assets, and model services described in the <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/environment/README.md" hreflang="zh">environment guide</a>. Open the <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/docs/experiment-inspection.md" hreflang="zh">experiment viewer</a> to review decisions, tool calls, execution feedback, and native task results.</p>
-        </section>
-    </div>
+        <p class="sr-only" id="copy-status" role="status"></p>
+      </div>
+      <p class="prose reveal">To run a full experiment, prepare the simulator, task assets, and model services described in the <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/environment/README.md" hreflang="zh">environment guide</a>. Open the <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/docs/experiment-inspection.md" hreflang="zh">experiment viewer</a> to review decisions, tool calls, execution feedback, and native task results.</p>
+    </section>
   </main>
 
-  <footer class="wrap footer">
-    <a class="footer-name" href="#top">RoboUse-RSI</a>
-    <a href="#top">Back to top</a>
+  <footer class="footer">
+    <div class="footer-big" aria-hidden="true">RSI</div>
+    <div class="footer-row">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>RoboUse<b>-RSI</b></span></a>
+      <span class="mono">Robot learning, run by run.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
   </footer>
-  </div>
 </body>
 </html>
