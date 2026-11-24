@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#161d29">
+  <title>RoboUse-RSI · Functional workspace demo</title>
+  <link rel="stylesheet" href="./ui.css?v=2">
+  <script src="./data.js?v=2" defer></script>
+  <script src="./ui.js?v=2" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">R</span><span class="brand-wordmark">RoboUse<span>-RSI</span><small>Functional workspace <b>4.0</b></small></span></div>
+    <div class="section-label">Experiments <span id="run-count">0</span></div>
+    <label class="search-box"><span aria-hidden="true">⌕</span><input id="run-search" type="search" placeholder="Find an experiment…" aria-label="Find an experiment"></label>
+    <nav id="runs" aria-label="Experiments"></nav>
+    <footer><span class="local-dot"></span>Demo replay · Read only<span class="mono">runs/ (published report)</span></footer>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div class="breadcrumb">Workspace <span>/</span> <strong>Experiment monitor</strong></div>
+      <div class="topbar-actions">
+        <nav class="version-switcher" aria-label="Interface version">
+          <span title="Available in the local app">Original</span><span title="Available in the local app">UI 2.0</span><span title="Available in the local app">UI 3.0</span><span aria-current="page">UI 4.0</span>
+        </nav>
+        <div class="connection"><i></i>Replay</div>
+      </div>
+    </header>
+
+    <section class="run-header">
+      <div class="run-identity">
+        <div class="run-title-line"><span id="run-benchmark" class="benchmark-badge"></span><h1 id="run-title"></h1><span id="method-badge" class="method-badge"></span></div>
+        <p id="run-identifier" class="run-identifier mono"></p>
+        <p id="run-task" class="run-task"></p>
+      </div>
+      <div class="run-summary">
+        <div class="overview"><div><span>Run status</span><strong id="execution"></strong></div><div><span>Task outcome</span><strong id="verdict"></strong></div></div>
+        <div class="run-summary-meta"><span><strong id="total">0</strong> events</span><span>Latest <time id="last-event">—</time></span><button id="media-button" class="secondary"><span aria-hidden="true">▷</span> Recordings</button></div>
+      </div>
+    </section>
+
+    <p class="demo-note"><b>Demo replay.</b> Reconstructed from the published trajectory report. Step counts, call counts, scores and highlighted (<span class="rep">reported</span>) records follow the report; other call contents are abridged illustrations.</p>
+
+    <section class="panel scene-panel" aria-label="Scene observations">
+      <div class="scene-header">
+        <div><h2>Scene observations <span id="scene-step"></span></h2><p id="scene-note">Select an image to inspect it.</p></div>
+        <div class="scene-seek">
+          <div class="scene-seek-meta"><label for="seek">Timeline · every event</label><output id="position" for="seek"></output></div>
+          <input id="seek" type="range" min="0" max="0" step="1" value="0" aria-label="Event timeline">
+        </div>
+        <div class="scene-controls">
+          <button id="prev" class="icon-button" aria-label="Previous event">‹</button>
+          <button id="play" class="primary" aria-pressed="false"><span id="play-icon">▶</span> <span id="play-label">Play</span></button>
+          <button id="next" class="icon-button" aria-label="Next event">›</button>
+          <button id="latest" class="secondary">Follow latest</button>
+        </div>
+      </div>
+      <div id="scene-images" class="image-gallery"></div>
+    </section>
+
+    <section class="activity" aria-labelledby="activity-title">
+      <div class="toolbar">
+        <h2 id="activity-title">Model activity</h2>
+        <input id="event-search" type="search" placeholder="Search model and policy calls…" aria-label="Search activity">
+        <label class="select">Role <select id="role-filter"><option value="">All roles</option></select></label>
+      </div>
+      <div class="grid">
+        <section class="panel log" data-lane="llm">
+          <div class="log-head"><span class="log-icon llm">✳</span><div><h3>LLM</h3><p>Merged interactions · input / output / usage</p></div><span class="count" id="llm-count">0</span></div>
+          <div class="log-body" id="llm-list"></div>
+        </section>
+        <section class="panel log" data-lane="policy">
+          <div class="log-head"><span class="log-icon policy">⌁</span><div><h3>Policy</h3><p>Low-level policy · input / predicted actions</p></div><span class="count" id="policy-count">0</span></div>
+          <div class="log-body" id="policy-list"></div>
+        </section>
+      </div>
+      <div class="bottom-note"><span>Select a call to inspect its full input and output</span><span id="sync">—</span></div>
+    </section>
+
+    <section class="functional" aria-labelledby="functional-title">
+      <div class="functional-heading">
+        <h2 id="functional-title">Functional activity</h2>
+        <p>Configured modules · recorded inputs and outputs</p>
+        <span class="legend"><i></i>Configured <i class="off"></i>Inactive / not recorded</span>
+      </div>
+      <div id="roles" class="roles"></div>
+    </section>
+  </main>
+
+  <dialog id="detail" class="drawer">
+    <div class="drawer-header"><div><div class="eyebrow" id="detail-category">EVENT DETAIL</div><h2 id="detail-title"></h2></div><button class="icon-button close" aria-label="Close details">×</button></div>
+    <div id="detail-meta" class="detail-meta"></div>
+    <div id="detail-body" class="detail-body"></div>
+  </dialog>
+
+  <dialog id="image-dialog" class="image-dialog">
+    <div class="drawer-header"><h2 id="image-title">Observation</h2><button class="icon-button close" aria-label="Close image">×</button></div>
+    <img id="full-image" alt="">
+  </dialog>
+
+  <dialog id="media" class="media-dialog">
+    <div class="drawer-header"><div><div class="eyebrow">RECORDED MEDIA</div><h2>Recordings</h2></div><button class="icon-button close" aria-label="Close recordings">×</button></div>
+    <p class="muted" id="media-note"></p>
+    <video id="media-video" controls playsinline preload="none"></video>
+  </dialog>
+</body>
+</html>

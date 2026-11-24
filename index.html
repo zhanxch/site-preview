@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#05060d">
   <title>RoboUse-RSI · Robot Recursive Self-Improvement</title>
   <link rel="preload" href="./assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./styles.css?v=3">
-  <script src="./app.js?v=3" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=4">
+  <script src="./app.js?v=4" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -23,6 +23,7 @@
       <a href="#methods">Methods</a>
       <a href="#benchmarks">Benchmarks</a>
       <a href="#demos">Demos</a>
+      <a href="#interface">Interface</a>
       <a href="#quick-start">Setup</a>
     </nav>
     <a class="gh-button" href="https://github.com/MichaelGaoZT/RoboUse-RSI">
@@ -253,10 +254,33 @@
       <p class="note reveal">These runs used different tasks and execution modes. <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/feeed06eba674749b9617e12a1cccfbac7b5537f/docs/scissors-supervision-and-icl.md" hreflang="zh">Read the trajectory report ↗</a></p>
     </section>
 
+    <!-- INTERFACE -->
+    <section class="section" id="interface">
+      <header class="section-head reveal">
+        <p class="tag">06 / Interface</p>
+        <h2>Inspect every call, <span class="grad">live</span></h2>
+        <p>The RoboUse-RSI workspace shows camera observations, LLM and policy calls, and the five functional modules side by side. Scrub the timeline, press play, or open any call to read its full input and output. This replay uses the two RoboDojo runs above.</p>
+      </header>
+      <div class="app-window reveal">
+        <div class="app-bar">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span class="app-url mono">127.0.0.1:8765/ui4/</span>
+          <a class="app-open" href="./ui/" target="_blank" rel="noopener">Open full screen ↗</a>
+        </div>
+        <iframe src="./ui/" title="RoboUse-RSI functional workspace demo" loading="lazy"></iframe>
+      </div>
+      <div class="ui-hints reveal">
+        <span><kbd>Space</kbd> play / pause</span>
+        <span><kbd>←</kbd><kbd>→</kbd> step through events</span>
+        <span>Click a call or camera image for details</span>
+        <span>Switch experiments in the sidebar</span>
+      </div>
+    </section>
+
     <!-- QUICK START -->
     <section class="section" id="quick-start">
       <header class="section-head reveal">
-        <p class="tag">06 / Setup</p>
+        <p class="tag">07 / Setup</p>
         <h2>Up and running <span class="grad">in a minute</span></h2>
         <p>With Python 3.10 or newer and access to the implementation repository, install the framework and preview a reference method without starting a simulator or model.</p>
       </header>
