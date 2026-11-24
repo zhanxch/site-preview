@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f8f9fc">
   <title>RoboUse-RSI · Robot Recursive Self-Improvement</title>
   <link rel="stylesheet" href="./research/research.css">
-  <link rel="stylesheet" href="./project.css?v=2">
+  <link rel="stylesheet" href="./project.css?v=4">
   <script src="./site.js?v=3" defer></script>
 </head>
 <body id="top">
@@ -37,7 +37,9 @@
           <a href="#methods">Methods</a>
           <a href="#benchmarks">Benchmarks</a>
           <a href="#demonstrations">Demos</a>
+          <a href="#interface">Interface</a>
           <a href="#quick-start">Setup</a>
+          <a href="#community">Community</a>
         </nav>
       </details>
     </div>
@@ -261,6 +263,20 @@
           <p class="section-note">These runs used different tasks and execution modes. <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/feeed06eba674749b9617e12a1cccfbac7b5537f/docs/scissors-supervision-and-icl.md" hreflang="zh">Read the trajectory report.</a></p>
         </section>
 
+
+        <section class="article-section" id="interface">
+          <h2>Interface</h2>
+          <p>The RoboUse-RSI workspace shows camera observations, LLM and policy calls, and the five functional modules side by side. Scrub the timeline, press play, or open any call to read its full input and output. This replay uses the two RoboDojo runs above.</p>
+          <figure class="ui-embed">
+            <div class="ui-embed-bar">
+              <span class="micro">127.0.0.1:8765/ui4/</span>
+              <a href="./ui/" target="_blank" rel="noopener">Open full screen <span aria-hidden="true">↗</span></a>
+            </div>
+            <iframe src="./ui/" title="RoboUse-RSI functional workspace demo" loading="lazy"></iframe>
+            <figcaption>Space plays or pauses; the arrow keys step through events. Click a call or camera image for details.</figcaption>
+          </figure>
+        </section>
+
         <section class="article-section" id="quick-start">
           <h2>Quick start</h2>
           <p>With Python 3.10 or newer and access to the implementation repository, install the framework and preview a reference method without starting a simulator or model.</p>
@@ -280,6 +296,33 @@ python -m openrsi methods run robo_icl --dry-run</code></pre>
             <p class="sr-only" id="copy-status" role="status"></p>
           </div>
           <p>To run a full experiment, prepare the simulator, task assets, and model services described in the <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/environment/README.md" hreflang="zh">environment guide</a>. Open the <a href="https://github.com/MichaelGaoZT/OpenRSI/blob/main/docs/experiment-inspection.md" hreflang="zh">experiment viewer</a> to review decisions, tool calls, execution feedback, and native task results.</p>
+
+        <section class="article-section" id="community">
+          <h2>Community</h2>
+          <p>Talk about methods, benchmarks, and results. The WeChat groups are for Chinese-language discussion, release notes, and questions.</p>
+          <div class="community-grid">
+            <article class="community-card">
+              <h3>RoboUse-RSI 交流群 1</h3>
+              <p>Scan with WeChat to join the first group.</p>
+              <a href="./assets/wechat-group-1.jpg"><img src="./assets/wechat-group-1.jpg" width="360" height="544" alt="WeChat QR code for RoboUse-RSI 交流群1. Valid through December 1."></a>
+            </article>
+            <article class="community-card">
+              <h3>RoboUse-RSI 交流群 2</h3>
+              <p>Scan with WeChat to join the second group.</p>
+              <a href="./assets/wechat-group-2.jpg"><img src="./assets/wechat-group-2.jpg" width="360" height="544" alt="WeChat QR code for RoboUse-RSI 交流群2. Valid through December 1."></a>
+            </article>
+            <article class="community-card">
+              <h3>RoboUse-RSI 交流群 3</h3>
+              <p>Scan with WeChat to join the third group.</p>
+              <a href="./assets/wechat-group-3.jpg"><img src="./assets/wechat-group-3.jpg" width="360" height="544" alt="WeChat QR code for RoboUse-RSI 交流群3. Valid through December 1."></a>
+            </article>
+            <article class="community-card">
+              <h3>RoboUse-RSI 交流群 4</h3>
+              <p>Scan with WeChat to join the fourth group.</p>
+              <a href="./assets/wechat-group-4.jpg"><img src="./assets/wechat-group-4.jpg" width="360" height="544" alt="WeChat QR code for RoboUse-RSI 交流群4. Valid through December 1."></a>
+            </article>
+          </div>
+        </section>
         </section>
     </div>
   </main>
